@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+    <style>
+        form{margin: auto; width: 80%;}
+        .results{margin: auto; width: 50%; border:1px solid #cccccc;}
+        p{text-indent: 4em;}
+    </style>
+<head>
+    <title> Thermoelectric Performance Prediction </title>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=AM_HTMLorMML-full"> </script>
+</head>
+<body>
+    <div class="formula">
+        <form action="{{url_for('main')}}" method="POST">
+            <fieldset>
+                <legend> Material Properties </legend>
+                <table>
+                    <tr>
+                        <th>Thermal conductivity <span>(`WK^(-1)m^(-1)`)</span>:</th>
+                        <td><label><span>`k_n^I=`</span></label></td>
+                        <td><input name="kn1" id="kn1" type="number" min="0" step="0.001" style="width:80px;" required>,</td>
+                        <td><label><span>`k_p^I=`</span></label></td>
+                        <td><input name="kp1" id="kp1" type="number" min="0" step="0.001" style="width:80px;" required>.</td>
+                    </tr>
+                    <tr>
+                        <th>Electrical resistivity <span>(`&mu;&Omega;m`)</span>:</th>
+                        <td><label><span>`&rho;_n^I=`</span></label></td>
+                        <td><input name="rhon1" id="rhon1" type="number" min="0" step="0.001" style="width:80px;" required>,</td>
+                        <td><label><span>`&rho;_p^I=`</span></label></td>
+                        <td><input name="rhop1" id="rhop1" type="number" min="0" step="0.001" style="width:80px;" required>,</td>
+                        <td><label><span>`&rho;_n^(II)=`</span></label></td>
+                        <td><input name="rhon2" id="rhon2" type="number" min="0" step="0.001" style="width:80px;" required>,</td>
+                        <td><label><span>`&rho;_p^(II)=`</span></label></td>
+                        <td><input name="rhop2" id="rhop2" type="number" min="0" step="0.001" style="width:80px;" required>.</td>
+                    </tr>
+                    
+                    <tr>
+                        <th>Seebeck coefficient <span>(`&mu;VK^(-1)`)</span>:</th>
+                        <td><label><span>`s_n^I=`</span></label></td>
+                        <td><input name="sn1" id="sn1" type="number" max="0" step="0.001" style="width:80px;" required>,</td>
+                        <td><label><span>`s_p^I=`</span></label></td>
+                        <td><input name="sp1" id="sp1" type="number" min="0" step="0.001" style="width:80px;" required>.</td>
+                    </tr>
+                    
+                    <tr>
+                        <th></th>
+                        <td><label><span>`s_(nh)=`</span></label></td>
+                        <td><input name="snh" id="snh" type="number" max="0" step="0.001" style="width:80px;" required>,</td>
+                        <td><label><span>`s_(nc)=`</span></label></td>
+                        <td><input name="snc" id="snc" type="number" max="0" step="0.001" style="width:80px;" required>.</td>
+                        <td><label><span>`s_(ph)=`</span></label></td>
+                        <td><input name="sph" id="sph" type="number" min="0" step="0.001" style="width:80px;" required>,</td>
+                        <td><label><span>`s_(pc)=`</span></label></td>
+                        <td><input name="spc" id="spc" type="number" min="0" step="0.001" style="width:80px;" required>.</td>
+                    </tr>
+
+                    <tr>
+                        <th>Thomson coefficient <span>(`&mu;VK^(-1)`)</span>:</th>
+                        <td><label><span>`&tau;_n^I=`</span></label></td>
+                        <td><input name="taun1" id="taun1" type="number" step="0.001" style="width:80px;" required>,</td>
+                        <td><label><span>`&tau;_p^I=`</span></label></td>
+                        <td><input name="taup1" id="taup1" type="number" step="0.001" style="width:80px;" required>,</td>
+                        <td><label><span>`&tau;_n^(II)=`</span></label></td>
+                        <td><input name="taun2" id="taun2" type="number" step="0.001" style="width:80px;" required>,</td>
+                        <td><label><span>`&tau;_p^(II)=`</span></label></td>
+                        <td><input name="taup2" id="taup2" type="number" step="0.001" style="width:80px;" required>.</td>
+                    </tr>
+                </table>
+            </fieldset>
+            <br>
+            <fieldset>
+                <legend> Geometrical Parameters </legend>
+                <table>
+                    <tr>
+                        <th>shape factor <span>(`mm`)</span>:</th>
+                        <td><label><span>`&beta;_n=`</span></label></td>
+                        <td><input name="betan" id="betan" type="number" min="0" step="0.001" style="width:80px;" required>,</td>
+                        <td><label><span>`&beta;_p=`</span></label></td>
+                        <td><input name="betap" id="betap" type="number" min="0" step="0.001" style="width:80px;" required>.</td>
+                    </tr>
+
+                    <tr>
+                        <th>Thermal Contact Resistances <span>(`KW^(-1)`)</span>:</th>
+                        <td><label><span>`&theta;_(cn)=`</span></label></td>
+                        <td><input name="thetacn" id="thetacn" type="number" min="0" step="0.001" style="width:80px;" required>,</td>
+                        <td><label><span>`&theta;_(cp)=`</span></label></td>
+                        <td><input name="thetacp" id="thetacp" type="number" min="0" step="0.001" style="width:80px;" required>.</td>
+                    </tr>
+
+                    <tr>
+                        <th>Electrical Contact Resistances <span>(`m&Omega;`)</span>:</th>
+                        <td><label><span>`R_(cn)=`</span></label></td>
+                        <td><input name="Rcn" id="Rcn" type="number" min="0" step="0.001" style="width:80px;" required>,</td>
+                        <td><label><span>`R_(cp)=`</span></label></td>
+                        <td><input name="Rcp" id="Rcp" type="number" min="0" step="0.001" style="width:80px;" required>.</td>
+                    </tr>
+
+                    <tr>
+                        <th>Number of thermoelectric couples:</th>
+                        <td><label><span>`N =`</span></label></td>
+                        <td><input name="N" id="N" type="number" style="width:80px;" required>.</td>
+                    </tr>
+                </table>
+
+            </fieldset>
+            <br>
+            <fieldset>
+                <legend> Boundary Conditions </legend>
+                <table>
+                    <tr>
+                        <th>Hot and cold temperatures <span>(`K`)</span>:</th>
+                        <td><label><span>`T_h=`</span></label></td>
+                        <td><input name="Th" id="Th" type="number" min="0" step="0.001" style="width:80px;" required>,</td>
+                        <td><label><span>`T_c=`</span></label></td>
+                        <td><input name="Tc" id="Tc" type="number" min="0" step="0.001" style="width:80px;" required>.</td>
+                    </tr>
+                    <tr>
+                        <th>External resistance <span>(`m&Omega;`)</span>:</th>
+                        <td><label><span>`R_L=`</span></label></td>
+                        <td><input name="RL" id="RL" type="number" min="0" step="0.001" style="width:80px;" required>.</td>
+                    </tr>
+                </table>  
+            </fieldset>
+            <br>
+            <div style="text-align: center;">
+                <button type="submit" class="btn btn-primary btn-block btn-large">Get the TEG performance prediction</button>
+            </div>
+        </form>
+    </div> 
+    <br>
+    <div class="results" align="center">
+        <br>
+        Predicted efficiency (%): <p style="font-size: 40px;">{{eta}}</p>
+        Predicted output power (mW): <p style="font-size: 40px;">{{P}}</p>       
+    </div>
+</body>
+</html>
